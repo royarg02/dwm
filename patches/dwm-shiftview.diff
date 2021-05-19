@@ -1,0 +1,47 @@
+diff --git a/config.def.h b/config.def.h
+index 1c0b587..9e3bc61 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -59,6 +59,8 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn()
+ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+ static const char *termcmd[]  = { "st", NULL };
+ 
++#include "shiftview.c"
++
+ static Key keys[] = {
+ 	/* modifier                     key        function        argument */
+ 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+@@ -94,6 +96,8 @@ static Key keys[] = {
+ 	TAGKEYS(                        XK_8,                      7)
+ 	TAGKEYS(                        XK_9,                      8)
+ 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
++	{ MODKEY,                       XK_n,      shiftview,      {.i = +1} },
++	{ MODKEY,                       XK_p,      shiftview,      {.i = -1} },
+ };
+ 
+ /* button definitions */
+diff --git a/shiftview.c b/shiftview.c
+new file mode 100644
+index 0000000..e82053a
+--- /dev/null
++++ b/shiftview.c
+@@ -0,0 +1,19 @@
++/** Function to shift the current view to the left/right
++ *
++ * @param: "arg->i" stores the number of tags to shift right (positive value)
++ *          or left (negative value)
++ */
++void
++shiftview(const Arg *arg) {
++	Arg shifted;
++
++	if(arg->i > 0) // left circular shift
++		shifted.ui = (selmon->tagset[selmon->seltags] << arg->i)
++		   | (selmon->tagset[selmon->seltags] >> (LENGTH(tags) - arg->i));
++
++	else // right circular shift
++		shifted.ui = selmon->tagset[selmon->seltags] >> (- arg->i)
++		   | selmon->tagset[selmon->seltags] << (LENGTH(tags) + arg->i);
++
++	view(&shifted);
++}

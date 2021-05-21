@@ -457,7 +457,7 @@ attachstack(Client *c)
 void
 buttonpress(XEvent *e)
 {
-	unsigned int i, x, click;
+	unsigned int i, x, click, stw = 0;
 	Arg arg = {0};
 	Client *c;
 	Monitor *m;
@@ -471,6 +471,10 @@ buttonpress(XEvent *e)
 		selmon = m;
 		focus(NULL);
 	}
+
+	if(showsystray && m == systraytomon(m) && !systrayonleft)
+		stw = getsystraywidth();
+
 	if (ev->window == selmon->barwin) {
 		i = x = 0;
 		do
@@ -481,8 +485,8 @@ buttonpress(XEvent *e)
 			arg.ui = 1 << i;
 		} else if (ev->x < x + blw)
 			click = ClkLtSymbol;
-		else if (ev->x > selmon->ww - statusw - getsystraywidth()) {
-			x = selmon->ww - statusw - getsystraywidth();
+		else if (ev->x > selmon->ww - statusw - stw) {
+			x = selmon->ww - statusw - stw;
 			click = ClkStatusText;
 			statussig = 0;
 			for (text = s = stext; *s && x <= ev->x; s++) {
@@ -829,14 +833,14 @@ drawbar(Monitor *m)
 				ch = *s;
 				*s = '\0';
 				tw = TEXTW(text) - lrpad;
-				drw_text(drw, m->ww - statusw + x, 0, tw, bh, 0, text, 0);
+				drw_text(drw, m->ww - statusw + x - stw, 0, tw, bh, 0, text, 0);
 				x += tw;
 				*s = ch;
 				text = s + 1;
 			}
 		}
-		tw = TEXTW(text) - lrpad / 2 + 2;
-		drw_text(drw, m->ww - statusw + x - stw, 0, tw, bh, lrpad / 2 - 2, text, 0);
+		tw = TEXTW(text) - lrpad + 2;
+		drw_text(drw, m->ww - statusw + x - stw, 0, tw, bh, 0, text, 0);
 		tw = statusw;
 	}
 
@@ -2361,7 +2365,7 @@ updatesystray(void)
 	if (!showsystray)
 		return;
 	if (systrayonleft)
-		x -= sw + lrpad / 2;
+		x -= sw - lrpad;
 	if (!systray) {
 		/* init systray */
 		if (!(systray = (Systray *)calloc(1, sizeof(Systray))))

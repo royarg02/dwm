@@ -49,12 +49,3 @@
  		tw = statusw;
  	}
  
-@@ -2361,7 +2365,7 @@
- 	if (!showsystray)
- 		return;
- 	if (systrayonleft)
--		x -= sw + lrpad / 2;
-+		x -= sw - lrpad;
- 	if (!systray) {
- 		/* init systray */
- 		if (!(systray = (Systray *)calloc(1, sizeof(Systray))))

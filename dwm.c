@@ -2381,7 +2381,7 @@ updatesystray(void)
 	if (!showsystray)
 		return;
 	if (systrayonleft)
-		x -= sw - lrpad;
+		x -= sw + lrpad / 2;
 	if (!systray) {
 		/* init systray */
 		if (!(systray = (Systray *)calloc(1, sizeof(Systray))))

@@ -10,7 +10,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
-static const char buttonbar[]       = "<O>";
+static const char buttonbar[]       = "Applications";
 static char font[]            = "sans-serif:size=11";
 static char dmenufont[]       = "monospace:size=11";
 static const char *fonts[]          = {

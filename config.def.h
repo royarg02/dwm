@@ -143,6 +143,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1} },
 	{ MODKEY,                       XK_b,      shiftview,      {.i = -1} },
+	{ MODKEY,                       XK_o,      winview,        {0} },
 };
 
 /* button definitions */

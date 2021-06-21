@@ -1659,6 +1659,8 @@ propertynotify(XEvent *e)
 		case XA_WM_HINTS:
 			updatewmhints(c);
 			drawbars();
+			if (c->isurgent)
+				XSetWindowBorder(dpy, c->win, scheme[SchemeSel][ColFg].pixel);
 			drawtabs();
 			break;
 		}

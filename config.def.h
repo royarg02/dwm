@@ -52,11 +52,13 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class               instance  title                     tags mask  isfloating  monitor */
-	{ "Gimp",              NULL,     "GIMP Startup",           0,         1,          -1 },
+	{ "firefox",           NULL,     "About Mozilla Firefox",  0,         1,          -1 },
+	{ "firefox",           NULL,     "Picture-in-Picture",     0,         1,          -1 },
 	{ "jetbrains-studio",  NULL,     "win0",                   0,         1,          -1 },
 	{ "jetbrains-studio",  NULL,     "Welcome",                0,         1,          -1 },
-	{ "firefox",           NULL,     "Picture-in-Picture",     0,         1,          -1 },
-	{ "firefox",           NULL,     "About Mozilla Firefox",  0,         1,          -1 },
+	{ "mpv",               NULL,     NULL,                     0,         1,          -1 },
+	{ "Gimp",              NULL,     "GIMP Startup",           0,         1,          -1 },
+	{ NULL,                NULL,     "Picture-in-picture",     0,         1,          -1 },
 };
 
 /* layout(s) */

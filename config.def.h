@@ -57,6 +57,7 @@ static const Rule rules[] = {
 	{ "jetbrains-studio",  NULL,     "win0",                   0,         1,          -1 },
 	{ "jetbrains-studio",  NULL,     "Welcome",                0,         1,          -1 },
 	{ "mpv",               NULL,     NULL,                     0,         1,          -1 },
+	{ "Connman-gtk",       NULL,     "Network Settings",       0,         1,          -1 },
 	{ "Gimp",              NULL,     "GIMP Startup",           0,         1,          -1 },
 	{ NULL,                NULL,     "Picture-in-picture",     0,         1,          -1 },
 };

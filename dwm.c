@@ -2169,8 +2169,11 @@ sigstatusbar(const Arg *arg)
 void
 spawn(const Arg *arg)
 {
-	if (arg->v == dmenucmd)
+	if (arg->v == dmenucmd) {
 		dmenumon[0] = '0' + selmon->num;
+		sprintf(dmenuheight, "%d", bh);
+		sprintf(dmenuborder, "%d", borderpx);
+	}
 	if (fork() == 0) {
 		if (dpy)
 			close(ConnectionNumber(dpy));

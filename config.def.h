@@ -110,8 +110,6 @@ static const char *dmenucmd[] = {
 	"-sf", selfgcolor,
 	NULL
 };
-static const char *termcmd[]  = { "st", NULL };
-static const char *filemanagercmd[] = { "thunar", NULL };
 
 #include "shiftview.c"
 
@@ -139,8 +137,9 @@ ResourcePref resources[] = {
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_t,	   spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_e,      spawn,          {.v = filemanagercmd } },
+	{ MODKEY,                       XK_t,      spawn,          SHCMD("$TERMINAL") },
+	{ MODKEY,                       XK_e,      spawn,          SHCMD("$TERMINAL -e $FILE") },
+	{ MODKEY,                       XK_b,      spawn,          SHCMD("$BROWSER") },
 	{ MODKEY,                       XK_F11,    togglebar,      {0} },
 	{ MODKEY,                       XK_w,      tabmode,        {-1} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },

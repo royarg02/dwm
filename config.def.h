@@ -95,7 +95,23 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static char dmenuborder[3];
 static char dmenuheight[3];
-static const char *dmenucmd[] = { "dmenu_dex_run", "-m", dmenumon, "-fn", dmenufont, "-i", "-F", "-l", "20", "-z", "480", "-h", dmenuheight, "-bw", dmenuborder, "-p", "Applications", "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = {
+	"dmenu_dex_run",
+	"-m", dmenumon,
+	"-fn", dmenufont,
+	"-i",
+	"-F",
+	"-l", "20",
+	"-z", "480",
+	"-h", dmenuheight,
+	"-bw", dmenuborder,
+	"-p", "Applications",
+	"-nb", normbgcolor,
+	"-nf", normfgcolor,
+	"-sb", selbgcolor,
+	"-sf", selfgcolor,
+	NULL
+};
 static const char *termcmd[]  = { "st", NULL };
 static const char *filemanagercmd[] = { "thunar", NULL };
 
@@ -114,12 +130,12 @@ ResourcePref resources[] = {
 		{ "selbordercolor",     STRING,  &selbordercolor },
 		{ "selfgcolor",         STRING,  &selfgcolor },
 		{ "borderpx",          	INTEGER, &borderpx },
-		{ "snap",          		INTEGER, &snap },
+		{ "snap",               INTEGER, &snap },
 		{ "showbar",          	INTEGER, &showbar },
 		{ "topbar",          	INTEGER, &topbar },
 		{ "nmaster",          	INTEGER, &nmaster },
 		{ "resizehints",       	INTEGER, &resizehints },
-		{ "mfact",      	 	FLOAT,   &mfact },
+		{ "mfact",              FLOAT,   &mfact },
 };
 
 static Key keys[] = {

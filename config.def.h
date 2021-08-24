@@ -111,6 +111,7 @@ static const char *dmenucmd[] = {
 	NULL
 };
 
+#include <X11/XF86keysym.h>
 #include "shiftview.c"
 
 /*
@@ -140,6 +141,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      spawn,          SHCMD("$TERMINAL") },
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("$TERMINAL -e $FILE") },
 	{ MODKEY,                       XK_b,      spawn,          SHCMD("$BROWSER") },
+	{ 0,                      XF86XK_AudioMute,spawn,          SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle; kill -38 $(pidof "STATUSBAR")") },
+	{ 0,               XF86XK_AudioLowerVolume,spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%; kill -38 $(pidof "STATUSBAR")") },
+	{ 0,               XF86XK_AudioRaiseVolume,spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%; kill -38 $(pidof "STATUSBAR")") },
+	{ 0,                   XF86XK_AudioMicMute,spawn,          SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle; kill -37 $(pidof "STATUSBAR")") },
+	{ 0,              XF86XK_MonBrightnessDown,spawn,          SHCMD("xbacklight -dec 1; kill -39 $(pidof "STATUSBAR")") },
+	{ 0,                XF86XK_MonBrightnessUp,spawn,          SHCMD("xbacklight -inc 1; kill -39 $(pidof "STATUSBAR")") },
 	{ MODKEY,                       XK_F11,    togglebar,      {0} },
 	{ MODKEY,                       XK_w,      tabmode,        {-1} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },

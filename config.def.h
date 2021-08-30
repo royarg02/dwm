@@ -103,7 +103,7 @@ static const char *dmenucmd[] = {
 	"-z", "480",
 	"-h", dmenuheight,
 	"-bw", dmenuborder,
-	"-p", "Applications",
+	"-p", buttonbar,
 	"-nb", normbgcolor,
 	"-nf", normfgcolor,
 	"-sb", selbgcolor,

@@ -1,0 +1,60 @@
+diff --git a/config.def.h b/config.def.h
+index f021812..f4b04ad 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -21,6 +21,7 @@ static const int toptab				= False;               /* False means bottom tab bar
+ static const int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+ static const Bool viewontag         = True;     /* Switch view on tag switch */
+ static const char buttonbar[]       = "Applications";
++static const char pwrprompt[]     = "Power options";
+ static char font[]            = "sans-serif:size=11";
+ static char dmenufont[]       = "monospace:size=11";
+ static const char *fonts[]          = {
+@@ -94,6 +95,24 @@ static const Layout layouts[] = {
+ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+ static char dmenuborder[3];
+ static char dmenuheight[3];
++static const char *dmenupwrcmd[] = {
++	"dmenu_power_opt",
++	"-m", dmenumon,
++	"-fn", dmenufont,
++	"-i",
++	"-F",
++	"-l", "20",
++	"-z", "480",
++	"-h", dmenuheight,
++	"-bw", dmenuborder,
++	"-p", pwrprompt,
++	"-nb", normbgcolor,
++	"-nf", normfgcolor,
++	"-sb", selbgcolor,
++	"-sf", selfgcolor,
++	NULL
++};
++
+ static const char *dmenucmd[] = {
+ 	"dmenu_dex_run",
+ 	"-m", dmenumon,
+@@ -184,7 +203,8 @@ static Key keys[] = {
+ 	TAGKEYS(                        XK_7,                      6)
+ 	TAGKEYS(                        XK_8,                      7)
+ 	TAGKEYS(                        XK_9,                      8)
+-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
++	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = dmenupwrcmd } },
++	{ MODKEY,                       XK_x,      quit,           {0} },
+ 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1} },
+ 	{ MODKEY,                       XK_p,      shiftview,      {.i = -1} },
+ 	{ MODKEY,                       XK_o,      winview,        {0} },
+diff --git a/dwm.c b/dwm.c
+index 3ba3c78..497d237 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -2171,7 +2171,7 @@ sigstatusbar(const Arg *arg)
+ void
+ spawn(const Arg *arg)
+ {
+-	if (arg->v == dmenucmd) {
++	if (arg->v == dmenucmd || arg->v == dmenupwrcmd) {
+ 		dmenumon[0] = '0' + selmon->num;
+ 		sprintf(dmenuheight, "%d", bh);
+ 		sprintf(dmenuborder, "%d", borderpx);

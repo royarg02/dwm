@@ -2171,7 +2171,7 @@ sigstatusbar(const Arg *arg)
 void
 spawn(const Arg *arg)
 {
-	if (arg->v == dmenucmd) {
+	if (arg->v == dmenucmd || arg->v == dmenupwrcmd) {
 		dmenumon[0] = '0' + selmon->num;
 		sprintf(dmenuheight, "%d", bh);
 		sprintf(dmenuborder, "%d", borderpx);

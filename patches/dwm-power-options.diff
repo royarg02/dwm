@@ -35,13 +35,12 @@ index f021812..f4b04ad 100644
  static const char *dmenucmd[] = {
  	"dmenu_dex_run",
  	"-m", dmenumon,
-@@ -184,7 +203,8 @@ static Key keys[] = {
+@@ -184,7 +203,7 @@ static Key keys[] = {
  	TAGKEYS(                        XK_7,                      6)
  	TAGKEYS(                        XK_8,                      7)
  	TAGKEYS(                        XK_9,                      8)
 -	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 +	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = dmenupwrcmd } },
-+	{ MODKEY,                       XK_x,      quit,           {0} },
  	{ MODKEY,                       XK_n,      shiftview,      {.i = +1} },
  	{ MODKEY,                       XK_p,      shiftview,      {.i = -1} },
  	{ MODKEY,                       XK_o,      winview,        {0} },

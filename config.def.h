@@ -204,7 +204,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = dmenupwrcmd } },
-	{ MODKEY,                       XK_x,      quit,           {0} },
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1} },
 	{ MODKEY,                       XK_p,      shiftview,      {.i = -1} },
 	{ MODKEY,                       XK_o,      winview,        {0} },

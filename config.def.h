@@ -172,6 +172,8 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_a,      spawn,          SHCMD("dunstctl context") },
 	{ MODKEY,                       XK_F11,    togglebar,      {0} },
 	{ MODKEY,                       XK_w,      tabmode,        {-1} },
+	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  incnmaster,     {.i = +1 } },

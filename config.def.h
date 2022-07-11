@@ -21,7 +21,8 @@ static const int toptab				= False;               /* False means bottom tab bar 
 static const int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
 static const char buttonbar[]       = "Applications";
-static const char pwrprompt[]     = "Power options";
+static const char pwrprompt[]       = "Power options";
+static const char emojiprompt[]     = "Copy emoji to clipboard";
 static char font[]            = "sans-serif:size=11";
 static char dmenufont[]       = "monospace:size=11";
 static const char *fonts[]          = {
@@ -132,6 +133,23 @@ static const char *dmenucmd[] = {
 	NULL
 };
 
+static const char *dmenuemojicmd[] = {
+	"dmenu_emoji",
+	"-m", dmenumon,
+	"-fn", dmenufont,
+	"-i",
+	"-F",
+	"-b",
+	"-h", dmenuheight,
+	"-bw", dmenuborder,
+	"-p", emojiprompt,
+	"-nb", normbgcolor,
+	"-nf", normfgcolor,
+	"-sb", selbgcolor,
+	"-sf", selfgcolor,
+	NULL
+};
+
 #include <X11/XF86keysym.h>
 #include "shiftview.c"
 
@@ -170,6 +188,7 @@ static Key keys[] = {
 	{ 0,                XF86XK_MonBrightnessUp,spawn,          SHCMD("xbacklight -inc 1; kill -39 $(pidof "STATUSBAR")") },
 	{ MODKEY|ShiftMask,             XK_a,      spawn,          SHCMD("dunstctl history-pop") },
 	{ MODKEY|ControlMask,           XK_a,      spawn,          SHCMD("dunstctl context") },
+	{ MODKEY,                       XK_v,      spawn,          {.v = dmenuemojicmd } },
 	{ MODKEY,                       XK_F11,    togglebar,      {0} },
 	{ MODKEY,                       XK_w,      tabmode,        {-1} },
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },

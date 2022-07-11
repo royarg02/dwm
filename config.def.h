@@ -60,7 +60,6 @@ static const Rule rules[] = {
 	{ "Galculator",        NULL,     NULL,                     0,         1,          -1 },
 	{ "Gcolor3",           NULL,     "Color Picker",           0,         1,          -1 },
 	{ "mpv",               NULL,     NULL,                     0,         1,          -1 },
-	{ "Connman-gtk",       NULL,     "Network Settings",       0,         1,          -1 },
 	{ "Gimp",              NULL,     "GIMP Startup",           0,         1,          -1 },
 	{ NULL,                NULL,     "Picture-in-picture",     0,         1,          -1 },
 };

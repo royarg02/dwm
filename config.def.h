@@ -164,12 +164,12 @@ ResourcePref resources[] = {
 		{ "selbgcolor",         STRING,  &selbgcolor },
 		{ "selbordercolor",     STRING,  &selbordercolor },
 		{ "selfgcolor",         STRING,  &selfgcolor },
-		{ "borderpx",          	INTEGER, &borderpx },
+		{ "borderpx",           INTEGER, &borderpx },
 		{ "snap",               INTEGER, &snap },
-		{ "showbar",          	INTEGER, &showbar },
-		{ "topbar",          	INTEGER, &topbar },
-		{ "nmaster",          	INTEGER, &nmaster },
-		{ "resizehints",       	INTEGER, &resizehints },
+		{ "showbar",            INTEGER, &showbar },
+		{ "topbar",             INTEGER, &topbar },
+		{ "nmaster",            INTEGER, &nmaster },
+		{ "resizehints",        INTEGER, &resizehints },
 		{ "mfact",              FLOAT,   &mfact },
 };
 

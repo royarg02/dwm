@@ -158,22 +158,6 @@ Send focused window to next screen, if any.
 .B Mod\-F11
 Toggles the default panel on or off.
 .TP
-.B Mod\-b
-Spawn program set in the
-.BR BROWSER
-environment variable, preferably a web browser.
-.TP
-.B Mod\-t
-Spawn program set in the
-.BR TERMINAL
-environment variable, preferably a terminal emulator.
-.TP
-.B Mod\-e
-Run
-.BR "$TERMINAL -e $FILE" ,
-.B FILE
-being an environment variable set to a terminal based file manager.
-.TP
 .B Mod\-v
 Spawn
 .BR dmenu(1)
@@ -271,46 +255,6 @@ Add/remove all windows with nth tag to/from the view.
 .B Mod\-Shift\-q
 Display power options. Uses
 .BR dmenu(1) .
-.TP
-.B XF86AudioMute
-Mute the default sink. Uses
-.BR pactl(1) .
-.TP
-.B XF86AudioLowerVolume
-Lower volume of the default sink by
-.BR 5% .
-Uses
-.BR pactl(1) .
-.TP
-.B XF86AudioRaiseVolume
-Raise volume of the default sink by
-.BR 5% .
-Uses
-.BR pactl(1) .
-.TP
-.B XF86AudioMicMute
-Mute the default source. Uses
-.BR pactl(1) .
-.TP
-.B XF86MonBrightnessDown
-Lower the brightness of the display by
-.BR 1% .
-Uses
-.BR xbacklight(1) .
-.TP
-.B XF86MonBrightnessUp
-Raise the brightness of the display by
-.BR 1% .
-Uses
-.BR xbacklight(1) .
-.TP
-.B Mod\-Shift\-a
-Run
-.BR "dunstctl history-pop" .
-.TP
-.B Mod\-Ctrl\-a
-Run
-.BR "dunstctl context" .
 .SS Mouse commands
 .TP
 .B Mod\-Button1
@@ -333,10 +277,7 @@ prefix. See the source code for which settings can be provided through this
 method.
 .SH SEE ALSO
 .BR dmenu (1),
-.BR st (1),
-.BR pactl (1),
-.BR xbacklight (1),
-.BR dunstctl (1)
+.BR st (1)
 .SH ISSUES
 Java applications which use the XToolkit/XAWT backend may draw grey windows
 only. The XToolkit/XAWT backend breaks ICCCM-compliance in recent JDK 1.5 and early

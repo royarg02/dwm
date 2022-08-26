@@ -3,28 +3,28 @@
 /* appearance */
 static unsigned int borderpx  = 1;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
-static const unsigned int systrayspacing = 2;   /* systray spacing */
-static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray        = 1;     /* 0 means no systray */
+static unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
+static unsigned int systrayspacing = 2;   /* systray spacing */
+static int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static int showsystray        = 1;     /* 0 means no systray */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
-static const int focusonwheel       = 0;
+static int focusonwheel       = 0;
 /*  Display modes of the tab bar: never shown, always shown, shown only in  */
 /*  monocle mode in the presence of several windows.                        */
 /*  Modes after showtab_nmodes are disabled.                                */
 enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
-static const int showtab			= showtab_auto;        /* Default tab bar show mode */
-static const int toptab				= False;               /* False means bottom tab bar */
+static int showtab			= showtab_auto;        /* Default tab bar show mode */
+static int toptab				= False;               /* False means bottom tab bar */
 
-static const int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char buttonbar[]       = "Applications";
-static const char pwrprompt[]       = "Power options";
-static const char emojiprompt[]     = "Copy emoji to clipboard";
+static int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static Bool viewontag         = True;     /* Switch view on tag switch */
+static char buttonbar[]       = "Applications";
+static char pwrprompt[]       = "Power options";
+static char emojiprompt[]     = "Copy emoji to clipboard";
 static char font[]            = "monospace:size=10";
-static const char font2[]     = "monospace:size=10";
+static char font2[]           = "monospace:size=10";
 static char dmenufont[]       = "monospace:size=10";
 static const char *fonts[]    = {
 	font,
@@ -45,10 +45,10 @@ static char *colors[][3] = {
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
-static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
-static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
-static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
-static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
+static unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
+static unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
+static unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
+static int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -69,8 +69,8 @@ static const Rule rules[] = {
 static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static int nmaster     = 1;    /* number of clients in master area */
 static int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
-static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
-static const int decorhints  = 1;    /* 1 means respect decoration hints */
+static int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
+static int decorhints  = 1;    /* 1 means respect decoration hints */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -157,7 +157,27 @@ static const char *dmenuemojicmd[] = {
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
+		{ "systraypinning",     INTEGER, &systraypinning },
+		{ "systrayonleft",      INTEGER, &systrayonleft },
+		{ "systrayspacing",     INTEGER, &systrayspacing },
+		{ "systraypinningfailfirst",INTEGER, &systraypinningfailfirst },
+		{ "showsystray",        INTEGER, &showsystray },
+		{ "focusonwheel",       INTEGER, &focusonwheel },
+		{ "showtab",            INTEGER, &showtab },
+		{ "toptab",             INTEGER, &toptab },
+		{ "userbarheight",      INTEGER, &user_bh },
+		{ "viewontag",          INTEGER, &viewontag },
+		{ "buttonbar",          STRING,  &buttonbar },
+		{ "powerprompt",        STRING,  &pwrprompt },
+		{ "emojiprompt",        STRING,  &emojiprompt },
+		{ "ulinepad",           INTEGER, &ulinepad },
+		{ "ulinestroke",        INTEGER, &ulinestroke },
+		{ "ulinevoffset",       INTEGER, &ulinevoffset },
+		{ "ulineall",           INTEGER, &ulineall },
+		{ "lockfullscreen",     INTEGER, &lockfullscreen },
+		{ "decorhints",         INTEGER, &decorhints },
 		{ "font",               STRING,  &font },
+		{ "font2",              STRING,  &font2 },
 		{ "dmenufont",          STRING,  &dmenufont },
 		{ "normbgcolor",        STRING,  &normbgcolor },
 		{ "normbordercolor",    STRING,  &normbordercolor },

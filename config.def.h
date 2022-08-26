@@ -23,11 +23,12 @@ static const Bool viewontag         = True;     /* Switch view on tag switch */
 static const char buttonbar[]       = "Applications";
 static const char pwrprompt[]       = "Power options";
 static const char emojiprompt[]     = "Copy emoji to clipboard";
-static char font[]            = "sans-serif:size=11";
-static char dmenufont[]       = "monospace:size=11";
-static const char *fonts[]          = {
+static char font[]            = "monospace:size=10";
+static const char font2[]     = "monospace:size=10";
+static char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]    = {
 	font,
-	"Noto Color Emoji:size=11",
+	font2,
 };
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";

@@ -94,12 +94,10 @@ static const Layout layouts[] = {
 #define STATUSBAR "dwmblocks"
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static char dmenuborder[3];
 static char dmenuheight[3];
 static const char *dmenupwrcmd[] = {
 	"dmenu_power_opt",
-	"-m", dmenumon,
 	"-fn", dmenufont,
 	"-i",
 	"-F",
@@ -117,7 +115,6 @@ static const char *dmenupwrcmd[] = {
 
 static const char *dmenucmd[] = {
 	"dmenu_dex_run",
-	"-m", dmenumon,
 	"-fn", dmenufont,
 	"-i",
 	"-F",
@@ -135,7 +132,6 @@ static const char *dmenucmd[] = {
 
 static const char *dmenuemojicmd[] = {
 	"dmenu_emoji",
-	"-m", dmenumon,
 	"-fn", dmenufont,
 	"-i",
 	"-F",

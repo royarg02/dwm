@@ -2257,6 +2257,7 @@ void
 spawn(const Arg *arg)
 {
 	if (arg->v == dmenucmd || arg->v == dmenupwrcmd || arg->v == dmenuemojicmd) {
+    dmenumon[0] = '0' + selmon->num;
 		sprintf(dmenuheight, "%d", bh);
 		sprintf(dmenuborder, "%d", borderpx);
 	}

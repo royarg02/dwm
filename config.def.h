@@ -57,12 +57,12 @@ static const Rule rules[] = {
 	 */
 	/* class               instance  title                     tags mask  isfloating  monitor */
 	{ "firefox",           NULL,     "About Mozilla Firefox",  0,         1,          -1 },
-	{ "firefox",           NULL,     "Picture-in-Picture",     0,         1,          -1 },
+	{ "firefox",           NULL,     "Picture-in-Picture",    ~0,         1,          -1 },
 	{ "Galculator",        NULL,     NULL,                     0,         1,          -1 },
 	{ "Gcolor3",           NULL,     "Color Picker",           0,         1,          -1 },
 	{ "mpv",               NULL,     NULL,                     0,         1,          -1 },
 	{ "Gimp",              NULL,     "GIMP Startup",           0,         1,          -1 },
-	{ NULL,                NULL,     "Picture-in-picture",     0,         1,          -1 },
+	{ NULL,                NULL,     "Picture-in-picture",    ~0,         1,          -1 },
 };
 
 /* layout(s) */

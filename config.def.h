@@ -237,6 +237,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1} },
 	{ MODKEY,                       XK_p,      shiftview,      {.i = -1} },
 	{ MODKEY,                       XK_o,      winview,        {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
 };
 
 /* button definitions */

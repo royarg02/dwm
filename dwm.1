@@ -255,6 +255,9 @@ Add/remove all windows with nth tag to/from the view.
 .B Mod\-Shift\-q
 Display power options. Uses
 .BR dmenu(1) .
+.TP
+.B Mod\-Control\-Shift\-q
+Restart dwm.
 .SS Mouse commands
 .TP
 .B Mod\-Button1
@@ -275,6 +278,13 @@ with
 .B dwm
 prefix. See the source code for which settings can be provided through this
 method.
+.SH SIGNALS
+.TP
+.B SIGHUP - 1
+Restart the dwm process.
+.TP
+.B SIGTERM - 15
+Cleanly terminate the dwm process.
 .SH SEE ALSO
 .BR dmenu (1),
 .BR st (1)

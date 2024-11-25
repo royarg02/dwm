@@ -8,7 +8,7 @@ index 1c0b587..9e3bc61 100644
  
 +#include "shiftview.c"
 +
- static Key keys[] = {
+ static const Key keys[] = {
  	/* modifier                     key        function        argument */
  	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 @@ -94,6 +96,8 @@ static Key keys[] = {

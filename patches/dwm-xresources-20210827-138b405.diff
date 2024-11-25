@@ -1,10 +1,8 @@
-From d28a26439326d7566a43459e1ef00b5b7c7f5b11 Mon Sep 17 00:00:00 2001
-From: David JULIEN <swy7ch@protonmail.com>
-Date: Sun, 14 Mar 2021 18:19:17 +0100
-Subject: [PATCH] [PATCH] feat: manage font through xrdb
+From f30583c6e2ab5e7de6ef4ebf156076ac0f6e69fc Mon Sep 17 00:00:00 2001
+From: Jack Bird <jack.bird@durham.ac.uk>
+Date: Fri, 27 Aug 2021 00:53:14 +0100
+Subject: [PATCH] xresources updated for 138b405
 
-add font management to the dwm-resources patch, enabling to manage fonts
-by sourcing $XRESOURCES
 ---
  config.def.h | 61 ++++++++++++++++++++++++++++++--------------
  drw.c        |  2 +-
@@ -13,7 +11,7 @@ by sourcing $XRESOURCES
  4 files changed, 116 insertions(+), 21 deletions(-)
 
 diff --git a/config.def.h b/config.def.h
-index 1c0b587..db7b7bb 100644
+index a2ac963..87ac198 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -1,21 +1,23 @@
@@ -65,10 +63,10 @@ index 1c0b587..db7b7bb 100644
 +static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 +static int nmaster     = 1;    /* number of clients in master area */
 +static int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
  
  static const Layout layouts[] = {
- 	/* symbol     arrange function */
-@@ -56,9 +58,30 @@ static const Layout layouts[] = {
+@@ -57,9 +59,30 @@ static const Layout layouts[] = {
  
  /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -88,13 +86,13 @@ index 1c0b587..db7b7bb 100644
 +		{ "selbgcolor",         STRING,  &selbgcolor },
 +		{ "selbordercolor",     STRING,  &selbordercolor },
 +		{ "selfgcolor",         STRING,  &selfgcolor },
-+		{ "borderpx",          	INTEGER, &borderpx },
-+		{ "snap",          		INTEGER, &snap },
-+		{ "showbar",          	INTEGER, &showbar },
-+		{ "topbar",          	INTEGER, &topbar },
-+		{ "nmaster",          	INTEGER, &nmaster },
-+		{ "resizehints",       	INTEGER, &resizehints },
-+		{ "mfact",      	 	FLOAT,   &mfact },
++		{ "borderpx",           INTEGER, &borderpx },
++		{ "snap",               INTEGER, &snap },
++		{ "showbar",            INTEGER, &showbar },
++		{ "topbar",             INTEGER, &topbar },
++		{ "nmaster",            INTEGER, &nmaster },
++		{ "resizehints",        INTEGER, &resizehints },
++		{ "mfact",              FLOAT,   &mfact },
 +};
 +
  static Key keys[] = {
@@ -127,7 +125,7 @@ index 4bcd5ad..42b04ce 100644
  /* Cursor abstraction */
  Cur *drw_cur_create(Drw *drw, int shape);
 diff --git a/dwm.c b/dwm.c
-index 664c527..17bb21e 100644
+index 5e4d494..2214b19 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -36,6 +36,7 @@
@@ -238,5 +236,5 @@ index 664c527..17bb21e 100644
  #ifdef __OpenBSD__
  	if (pledge("stdio rpath proc exec", NULL) == -1)
 -- 
-2.30.2
+2.33.0
 

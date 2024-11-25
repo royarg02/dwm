@@ -1,0 +1,73 @@
+diff --git a/config.def.h b/config.def.h
+index 5c41e2c..e95c680 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -41,9 +41,12 @@ static const Rule rules[] = {
+ 	 *	WM_CLASS(STRING) = instance, class
+ 	 *	WM_NAME(STRING) = title
+ 	 */
+-	/* class      instance    title       tags mask     isfloating   monitor */
+-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
++	/* class               instance  title                     tags mask  isfloating  monitor */
++	{ "firefox",           NULL,     "About Mozilla Firefox",  0,         1,          -1 },
++	{ "firefox",           NULL,     "Picture-in-Picture",    ~0,         1,          -1 },
++	{ "Galculator",        NULL,     NULL,                     0,         1,          -1 },
++	{ "mpv",               NULL,     NULL,                     0,         1,          -1 },
++	{ NULL,                NULL,     "Picture-in-picture",    ~0,         1,          -1 },
+ };
+ 
+ /* layout(s) */
+@@ -62,7 +65,7 @@ static const Layout layouts[] = {
+ };
+ 
+ /* key definitions */
+-#define MODKEY Mod1Mask
++#define MODKEY Mod4Mask
+ #define TAGKEYS(KEY,TAG) \
+ 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+ 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+@@ -94,7 +97,6 @@ static const char *dmenucmd[] = {
+ 	"-sf", selfgcolor,
+ 	NULL
+ };
+-static const char *termcmd[]  = { "st", NULL };
+ static const char *dmenuemojicmd[] = {
+ 	"dmenu_emoji",
+ 	"-m", dmenumon,
+@@ -164,14 +166,13 @@ ResourcePref resources[] = {
+ 
+ static const Key keys[] = {
+ 	/* modifier                     key        function        argument */
+-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
++	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
+ 	{ MODKEY,                       XK_v,      spawn,          {.v = dmenuemojicmd } },
+-	{ MODKEY,                       XK_b,      togglebar,      {0} },
++	{ MODKEY,                       XK_F11,    togglebar,      {0} },
+ 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+ 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
++	{ MODKEY,                       XK_equal,  incnmaster,     {.i = +1 } },
++	{ MODKEY,                       XK_minus,  incnmaster,     {.i = -1 } },
+ 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+ 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+ 	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
+@@ -179,11 +180,11 @@ static const Key keys[] = {
+ 	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
+ 	{ MODKEY,                       XK_Return, zoom,           {0} },
+ 	{ MODKEY,                       XK_Tab,    view,           {0} },
+-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
+-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+-	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[3]} },
++	{ MODKEY,                       XK_q,      killclient,     {0} },
++	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
++	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
++	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
++	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[3]} },
+ 	{ MODKEY,                       XK_space,  setlayout,      {0} },
+ 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+ 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },

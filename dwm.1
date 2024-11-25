@@ -5,38 +5,29 @@ dwm \- dynamic window manager
 .B dwm
 .RB [ \-v ]
 .SH DESCRIPTION
-dwm is a dynamic window manager for X. It manages windows in tiled, monocle,
-deck and floating layouts. Either layout can be applied dynamically, optimising
-the environment for the application in use and the task performed.
+dwm is a dynamic window manager for X. It manages windows in tiled, monocle
+and floating layouts. Either layout can be applied dynamically, optimising the
+environment for the application in use and the task performed.
 .P
 In tiled layouts windows are managed in a master and stacking area. The master
 area on the left contains one window by default, and the stacking area on the
 right contains all other windows. The number of master area windows can be
 adjusted from zero to an arbitrary number. In monocle layout all windows are
-maximised to the screen size. In deck layout only the windows in the stacking
-area follow the monocle layout; the master client is still visible. In floating
-layout windows can be resized and moved freely. Dialog windows are always
-managed floating, regardless of the layout applied.
+maximised to the screen size. In floating layout windows can be resized and
+moved freely. Dialog windows are always managed floating, regardless of the
+layout applied.
 .P
 Windows are grouped by tags. Each window can be tagged with one or multiple
 tags. Selecting certain tags displays all windows with these tags.
 .P
-Each screen contains two small status bars.
-.P
-One bar displays all available tags, the layout, the title of the focused
-window, and the text read from the root window name property, if the screen is
-focused. A floating window is indicated with an empty square and a maximised
-floating window is indicated with a filled square before the windows title.  The
-selected tags are indicated with a different color. The tags of the focused
-window are indicated with a filled square in the top left corner.  The tags
-which are applied to one or more windows are indicated with an empty square in
-the top left corner.
-.P
-Another bar contains a tab for each window of the current view and allows
-navigation between windows, especially in the monocle mode. The different
-display modes of this bar are described under the Mod\-w Keybord command
-section.  When a single tag is selected, this tag is indicated in the left corner
-of the tab bar.
+Each screen contains a small status bar which displays all available tags, the
+layout, the title of the focused window, and the text read from the root window
+name property, if the screen is focused. A floating window is indicated with an
+empty square and a maximised floating window is indicated with a filled square
+before the windows title.  The selected tags are indicated with a different
+color. The tags of the focused window are indicated with a filled square in the
+top left corner.  The tags which are applied to one or more windows are
+indicated with an empty square in the top left corner.
 .P
 dwm draws a small border around windows to indicate the focus state.
 .SH OPTIONS
@@ -74,8 +65,7 @@ command.
 .TP
 .B Button1
 click on a tag label to display all windows with that tag, click on the layout
-label toggles between tiled and floating layout, click on a window name in the
-tab bar brings focus to that window. When clicked over the
+label toggles between tiled and floating layout. When clicked over the
 .BR STATUSBAR ,
 sets
 .BR "BUTTON=1"
@@ -128,10 +118,6 @@ click on a tag label applies that tag to the focused window.
 click on a tag label adds/removes that tag to/from the focused window.
 .SS Keyboard commands
 .TP
-.B Mod\-Shift\-Return
-Focus the master client. If already focused at the master client, focus goes
-back to last focused window.
-.TP
 .B Mod\-a
 Spawn
 .BR dmenu(1)
@@ -163,9 +149,6 @@ Spawn
 .BR dmenu(1)
 to select an emoji to copy to clipboard.
 .TP
-.B Mod\-Shift\-d
-Sets deck layout.
-.TP
 .B Mod\-Shift\-f
 Sets floating layout.
 .TP
@@ -184,13 +167,7 @@ Focus next window.
 .B Mod\-k
 Focus previous window.
 .TP
-.B Mod\-Shift\-j
-Rotate the current arrangement of windows clockwise.
-.TP
-.B Mod\-Shift\-k
-Rotate the current arrangement of windows counter-clockwise.
-.TP
-.B Mod\-+
+.B Mod\-=
 Increase number of windows in master area.
 .TP
 .B Mod\--
@@ -212,15 +189,6 @@ master/stacking area.
 .TP
 .B Mod\-Shift\-o
 Reset all windows in the master/stacking area to have equal heights.
-.TP
-.B Mod\-o
-Select view of the window in focus. The list of tags to be displayed is matched to the window tag list.
-.TP
-.B Mod\-w
-Cycle over the tab bar display modes: never displayed, always displayed,
-displayed only in monocle mode when the view contains more than one window (auto
-mode). Some display modes can be disabled in the configuration, config.h. In
-the default configuration only "never" and "auto" display modes are enabled.
 .TP
 .B Mod\-Return
 Zooms/cycles focused window to/from master area (tiled layouts only).

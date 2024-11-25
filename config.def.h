@@ -6,32 +6,21 @@
 static unsigned int borderpx  = 1;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
 static unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
+static unsigned int systrayonleft = 0;    /* 0: systray in the right corner, >0: systray on left of status text */
 static unsigned int systrayspacing = 2;   /* systray spacing */
 static int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static int showsystray        = 1;     /* 0 means no systray */
+static int showsystray        = 1;        /* 0 means no systray */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
+static int user_bh            = 2;        /* 2 is the default spacing around the bar's font */
 static int focusonwheel       = 0;
-/*  Display modes of the tab bar: never shown, always shown, shown only in  */
-/*  monocle mode in the presence of several windows.                        */
-/*  Modes after showtab_nmodes are disabled.                                */
-enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
-static int showtab			= showtab_auto;        /* Default tab bar show mode */
-static int toptab				= False;               /* False means bottom tab bar */
-
-static int user_bh            = 25;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static Bool viewontag         = True;     /* Switch view on tag switch */
-static char buttonbar[]       = "Applications";
-static char pwrprompt[]       = "Power options";
-static char emojiprompt[]     = "Copy emoji to clipboard";
 static char font[]            = "monospace:size=10";
-static char font2[]           = "monospace:size=10";
 static char dmenufont[]       = "monospace:size=10";
-static const char *fonts[]    = {
-	font,
-	font2,
-};
+static const char appmenuprompt[]   = "Applications";
+static const char emojiprompt[] = "Copy emoji to clipboard";
+static const char pwrprompt[]       = "Power options";
+static const char *fonts[]          = { font };
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
@@ -46,11 +35,6 @@ static char *colors[][3] = {
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-
-static unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
-static unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
-static unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
-static int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -69,15 +53,14 @@ static const Rule rules[] = {
 static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static int nmaster     = 1;    /* number of clients in master area */
 static int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
-static int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 static int decorhints  = 1;    /* 1 means respect decoration hints */
+static int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "[D]",      deck },
 };
 
 /* key definitions */
@@ -97,11 +80,44 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static char dmenuborder[3];
 static char dmenuheight[3];
-static const char *dmenupwrcmd[] = {
-	"dmenu_power_opt",
-  "-m", dmenumon,
+static const char *dmenucmd[] = {
+	"dmenu_dex_run",
+	"-m", dmenumon,
 	"-fn", dmenufont,
 	"-i",
+	"-l", "20",
+	"-z", "480",
+	"-h", dmenuheight,
+	"-bw", dmenuborder,
+	"-p", appmenuprompt,
+	"-nb", normbgcolor,
+	"-nf", normfgcolor,
+	"-sb", selbgcolor,
+	"-sf", selfgcolor,
+	NULL
+};
+static const char *dmenuemojicmd[] = {
+	"dmenu_emoji",
+	"-m", dmenumon,
+	"-fn", dmenufont,
+	"-i",
+	"-F",
+	"-b",
+	"-h", dmenuheight,
+	"-bw", dmenuborder,
+	"-p", emojiprompt,
+	"-nb", normbgcolor,
+	"-nf", normfgcolor,
+	"-sb", selbgcolor,
+	"-sf", selfgcolor,
+	NULL
+};
+static const char *dmenupwrcmd[] = {
+	"dmenu_power_opt",
+	"-m", dmenumon,
+	"-fn", dmenufont,
+	"-i",
+	"-F",
 	"-l", "20",
 	"-z", "480",
 	"-h", dmenuheight,
@@ -114,40 +130,6 @@ static const char *dmenupwrcmd[] = {
 	NULL
 };
 
-static const char *dmenucmd[] = {
-	"dmenu_dex_run",
-  "-m", dmenumon,
-	"-fn", dmenufont,
-	"-i",
-	"-l", "20",
-	"-z", "480",
-	"-h", dmenuheight,
-	"-bw", dmenuborder,
-	"-p", buttonbar,
-	"-nb", normbgcolor,
-	"-nf", normfgcolor,
-	"-sb", selbgcolor,
-	"-sf", selfgcolor,
-	NULL
-};
-
-static const char *dmenuemojicmd[] = {
-	"dmenu_emoji",
-  "-m", dmenumon,
-	"-fn", dmenufont,
-	"-i",
-	"-b",
-	"-h", dmenuheight,
-	"-bw", dmenuborder,
-	"-p", emojiprompt,
-	"-nb", normbgcolor,
-	"-nf", normfgcolor,
-	"-sb", selbgcolor,
-	"-sf", selfgcolor,
-	NULL
-};
-
-#include <X11/XF86keysym.h>
 #include "shiftview.c"
 
 /*
@@ -160,21 +142,11 @@ ResourcePref resources[] = {
 		{ "systraypinningfailfirst",INTEGER, &systraypinningfailfirst },
 		{ "showsystray",        INTEGER, &showsystray },
 		{ "focusonwheel",       INTEGER, &focusonwheel },
-		{ "showtab",            INTEGER, &showtab },
-		{ "toptab",             INTEGER, &toptab },
 		{ "userbarheight",      INTEGER, &user_bh },
 		{ "viewontag",          INTEGER, &viewontag },
-		{ "buttonbar",          STRING,  &buttonbar },
-		{ "powerprompt",        STRING,  &pwrprompt },
-		{ "emojiprompt",        STRING,  &emojiprompt },
-		{ "ulinepad",           INTEGER, &ulinepad },
-		{ "ulinestroke",        INTEGER, &ulinestroke },
-		{ "ulinevoffset",       INTEGER, &ulinevoffset },
-		{ "ulineall",           INTEGER, &ulineall },
 		{ "lockfullscreen",     INTEGER, &lockfullscreen },
 		{ "decorhints",         INTEGER, &decorhints },
 		{ "font",               STRING,  &font },
-		{ "font2",              STRING,  &font2 },
 		{ "dmenufont",          STRING,  &dmenufont },
 		{ "normbgcolor",        STRING,  &normbgcolor },
 		{ "normbordercolor",    STRING,  &normbordercolor },
@@ -196,12 +168,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = dmenuemojicmd } },
 	{ MODKEY,                       XK_F11,    togglebar,      {0} },
-	{ MODKEY,                       XK_w,      tabmode,        {-1} },
-	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      rotatestack,    {.i = -1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_equal,  incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_equal,  incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_minus,  incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
@@ -209,13 +178,11 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
 	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY|ShiftMask,             XK_Return, focusmaster,    {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -234,17 +201,15 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = dmenupwrcmd } },
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1} },
 	{ MODKEY,                       XK_p,      shiftview,      {.i = -1} },
-	{ MODKEY,                       XK_o,      winview,        {0} },
-	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
 };
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkButton,            0,              Button1,        spawn,          {.v = dmenucmd } },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
@@ -260,5 +225,5 @@ static const Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
-	{ ClkTabBar,            0,              Button1,        focuswin,       {0} },
 };
+

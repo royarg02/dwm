@@ -897,7 +897,7 @@ drawbar(Monitor *m)
 			}
 		}
 		tw = TEXTW(text) - lrpad / 2 + 2;
-		drw_text(drw, m->ww - statusw + x - stw, 0, tw, bh, lrpad / 2 - 2, text, 0);
+		drw_text(drw, m->ww - statusw + x - stw, 0, tw, bh, 0, text, 0);
 		tw = statusw;
 	}
 

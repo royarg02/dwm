@@ -2057,11 +2057,8 @@ spawn(const Arg *arg)
 {
 	struct sigaction sa;
 
-	if (arg->v == dmenucmd || arg->v == dmenuemojicmd || arg->v == dmenupwrcmd) {
+	if (arg->v == dmenucmd)
 		dmenumon[0] = '0' + selmon->num;
-		sprintf(dmenuheight, "%d", bh);
-		sprintf(dmenuborder, "%d", borderpx);
-	}
 	if (fork() == 0) {
 		if (dpy)
 			close(ConnectionNumber(dpy));

@@ -17,9 +17,6 @@ static int focusonwheel       = 0;
 static Bool viewontag         = True;     /* Switch view on tag switch */
 static char font[]            = "monospace:size=10";
 static char dmenufont[]       = "monospace:size=10";
-static const char appmenuprompt[]   = "Applications";
-static const char emojiprompt[] = "Copy emoji to clipboard";
-static const char pwrprompt[]       = "Power options";
 static const char *fonts[]          = { font };
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
@@ -78,57 +75,8 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static char dmenuborder[3];
-static char dmenuheight[3];
-static const char *dmenucmd[] = {
-	"dmenu_dex_run",
-	"-m", dmenumon,
-	"-fn", dmenufont,
-	"-i",
-	"-l", "20",
-	"-z", "480",
-	"-h", dmenuheight,
-	"-bw", dmenuborder,
-	"-p", appmenuprompt,
-	"-nb", normbgcolor,
-	"-nf", normfgcolor,
-	"-sb", selbgcolor,
-	"-sf", selfgcolor,
-	NULL
-};
-static const char *dmenuemojicmd[] = {
-	"dmenu_emoji",
-	"-m", dmenumon,
-	"-fn", dmenufont,
-	"-i",
-	"-F",
-	"-b",
-	"-h", dmenuheight,
-	"-bw", dmenuborder,
-	"-p", emojiprompt,
-	"-nb", normbgcolor,
-	"-nf", normfgcolor,
-	"-sb", selbgcolor,
-	"-sf", selfgcolor,
-	NULL
-};
-static const char *dmenupwrcmd[] = {
-	"dmenu_power_opt",
-	"-m", dmenumon,
-	"-fn", dmenufont,
-	"-i",
-	"-F",
-	"-l", "20",
-	"-z", "480",
-	"-h", dmenuheight,
-	"-bw", dmenuborder,
-	"-p", pwrprompt,
-	"-nb", normbgcolor,
-	"-nf", normfgcolor,
-	"-sb", selbgcolor,
-	"-sf", selfgcolor,
-	NULL
-};
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static const char *termcmd[]  = { "st", NULL };
 
 #include "shiftview.c"
 
@@ -165,8 +113,6 @@ ResourcePref resources[] = {
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_v,      spawn,          {.v = dmenuemojicmd } },
 	{ MODKEY,                       XK_F11,    togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -200,7 +146,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = dmenupwrcmd } },
 	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1} },
 	{ MODKEY,                       XK_p,      shiftview,      {.i = -1} },

@@ -1051,7 +1051,7 @@ getatomprop(Client *c, Atom prop)
 		&da, &di, &nitems, &dl, &p) == Success && p) {
 		if (nitems > 0)
 			atom = *(Atom *)p;
-		if (da == xatom[XembedInfo] && dl == 2)
+		if (da == xatom[XembedInfo] && nitems == 2)
 			atom = ((Atom *)p)[1];
 		XFree(p);
 	}
